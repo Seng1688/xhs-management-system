@@ -151,7 +151,10 @@ function parseCreateInvitationDto(
   const parsed = parseDto(createInvitationBodySchema, body)
 
   if (!parsed.ok) {
-    return parsed
+    return {
+      message: parsed.message,
+      ok: false,
+    }
   }
 
   const { aiAnalysisSessionId, joinerIds, ...invitation } = parsed.data
@@ -172,7 +175,10 @@ function parseUpdateInvitationDto(
   const parsed = parseDto(updateInvitationBodySchema, body)
 
   if (!parsed.ok) {
-    return parsed
+    return {
+      message: parsed.message,
+      ok: false,
+    }
   }
 
   const { joinerIds, ...invitation } = parsed.data

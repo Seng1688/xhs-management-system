@@ -41,11 +41,35 @@ const updateJoinerSchema = z
   )
 
 function parseCreateJoinerDto(body: unknown): DtoParseResult<CreateJoinerDto> {
-  return parseDto(createJoinerSchema, body)
+  const parsed = parseDto(createJoinerSchema, body)
+
+  if (!parsed.ok) {
+    return {
+      message: parsed.message,
+      ok: false,
+    }
+  }
+
+  return {
+    data: parsed.data as CreateJoinerDto,
+    ok: true,
+  }
 }
 
 function parseUpdateJoinerDto(body: unknown): DtoParseResult<UpdateJoinerDto> {
-  return parseDto(updateJoinerSchema, body)
+  const parsed = parseDto(updateJoinerSchema, body)
+
+  if (!parsed.ok) {
+    return {
+      message: parsed.message,
+      ok: false,
+    }
+  }
+
+  return {
+    data: parsed.data,
+    ok: true,
+  }
 }
 
 export {

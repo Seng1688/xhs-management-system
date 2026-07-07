@@ -2,14 +2,14 @@ import cors from "cors"
 import { sql } from "drizzle-orm"
 import express, { type Express } from "express"
 
-import { db } from "./db/client"
-import { aiRouter } from "./modules/ai/ai.routes"
-import { authRouter } from "./modules/auth/auth.routes"
-import { contentRouter } from "./modules/content/content.routes"
-import { invitationsRouter } from "./modules/invitations/invitations.routes"
-import { joinersRouter } from "./modules/joiners/joiners.routes"
-import { meRouter } from "./modules/me/me.routes"
-import { shopSearchRouter } from "./modules/shop-search/shop-search.routes"
+import { db } from "./db/client.js"
+import { aiRouter } from "./modules/ai/ai.routes.js"
+import { authRouter } from "./modules/auth/auth.routes.js"
+import { contentRouter } from "./modules/content/content.routes.js"
+import { invitationsRouter } from "./modules/invitations/invitations.routes.js"
+import { joinersRouter } from "./modules/joiners/joiners.routes.js"
+import { meRouter } from "./modules/me/me.routes.js"
+import { shopSearchRouter } from "./modules/shop-search/shop-search.routes.js"
 
 const app: Express = express()
 
