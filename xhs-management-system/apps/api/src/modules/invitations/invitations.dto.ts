@@ -150,7 +150,7 @@ function parseCreateInvitationDto(
 ): DtoParseResult<CreateInvitationDto> {
   const parsed = parseDto(createInvitationBodySchema, body)
 
-  if (!parsed.ok) {
+  if (parsed.ok === false) {
     return {
       message: parsed.message,
       ok: false,
@@ -174,7 +174,7 @@ function parseUpdateInvitationDto(
 ): DtoParseResult<UpdateInvitationDto> {
   const parsed = parseDto(updateInvitationBodySchema, body)
 
-  if (!parsed.ok) {
+  if (parsed.ok === false) {
     return {
       message: parsed.message,
       ok: false,

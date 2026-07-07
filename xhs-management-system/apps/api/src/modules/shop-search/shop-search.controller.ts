@@ -7,7 +7,7 @@ const searchShopsController: RequestHandler = async (req, res, next) => {
   try {
     const parsed = parseSearchShopsDto(req.query)
 
-    if (!parsed.ok) {
+    if (parsed.ok === false) {
       res.status(400).json({ message: parsed.message })
       return
     }

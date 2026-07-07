@@ -24,7 +24,7 @@ const createJoinerController: RequestHandler = async (req, res, next) => {
   try {
     const parsed = parseCreateJoinerDto(req.body)
 
-    if (!parsed.ok) {
+    if (parsed.ok === false) {
       res.status(400).json({ message: parsed.message })
       return
     }
@@ -53,7 +53,7 @@ const updateJoinerController: RequestHandler = async (req, res, next) => {
 
     const parsed = parseUpdateJoinerDto(req.body)
 
-    if (!parsed.ok) {
+    if (parsed.ok === false) {
       res.status(400).json({ message: parsed.message })
       return
     }

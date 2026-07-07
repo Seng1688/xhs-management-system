@@ -26,7 +26,7 @@ const createInvitationController: RequestHandler = async (req, res, next) => {
   try {
     const parsed = parseCreateInvitationDto(req.body)
 
-    if (!parsed.ok) {
+    if (parsed.ok === false) {
       res.status(400).json({ message: parsed.message })
       return
     }
@@ -50,7 +50,7 @@ const updateInvitationController: RequestHandler = async (req, res, next) => {
 
     const parsed = parseUpdateInvitationDto(req.body)
 
-    if (!parsed.ok) {
+    if (parsed.ok === false) {
       res.status(400).json({ message: parsed.message })
       return
     }

@@ -43,7 +43,7 @@ const updateJoinerSchema = z
 function parseCreateJoinerDto(body: unknown): DtoParseResult<CreateJoinerDto> {
   const parsed = parseDto(createJoinerSchema, body)
 
-  if (!parsed.ok) {
+  if (parsed.ok === false) {
     return {
       message: parsed.message,
       ok: false,
@@ -59,7 +59,7 @@ function parseCreateJoinerDto(body: unknown): DtoParseResult<CreateJoinerDto> {
 function parseUpdateJoinerDto(body: unknown): DtoParseResult<UpdateJoinerDto> {
   const parsed = parseDto(updateJoinerSchema, body)
 
-  if (!parsed.ok) {
+  if (parsed.ok === false) {
     return {
       message: parsed.message,
       ok: false,

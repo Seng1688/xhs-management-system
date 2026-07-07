@@ -80,7 +80,7 @@ const createContentForInvitationController: RequestHandler = async (
 
     const parsed = parseContentInputDto(req.body)
 
-    if (!parsed.ok) {
+    if (parsed.ok === false) {
       res.status(400).json({ message: parsed.message })
       return
     }
@@ -104,7 +104,7 @@ const updateContentController: RequestHandler = async (req, res, next) => {
 
     const parsed = parseContentInputDto(req.body)
 
-    if (!parsed.ok) {
+    if (parsed.ok === false) {
       res.status(400).json({ message: parsed.message })
       return
     }
@@ -134,7 +134,7 @@ const updateAssistantSettingsController: RequestHandler = async (req, res, next)
   try {
     const parsed = parseAssistantSettingsDto(req.body)
 
-    if (!parsed.ok) {
+    if (parsed.ok === false) {
       res.status(400).json({ message: parsed.message })
       return
     }
@@ -158,7 +158,7 @@ const startAiSessionController: RequestHandler = async (req, res, next) => {
 
     const parsed = parseStartAiSessionDto(req.body)
 
-    if (!parsed.ok) {
+    if (parsed.ok === false) {
       res.status(400).json({ message: parsed.message })
       return
     }
@@ -209,7 +209,7 @@ const addAiMessageController: RequestHandler = async (req, res, next) => {
 
     const parsed = parseAddAiMessageDto(req.body)
 
-    if (!parsed.ok) {
+    if (parsed.ok === false) {
       res.status(400).json({ message: parsed.message })
       return
     }

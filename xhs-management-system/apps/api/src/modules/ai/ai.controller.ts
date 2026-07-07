@@ -12,7 +12,7 @@ const analyzeInvitationController: RequestHandler = async (req, res, next) => {
   try {
     const parsed = parseAnalyzeInvitationDto(req.body)
 
-    if (!parsed.ok) {
+    if (parsed.ok === false) {
       res.status(400).json({ message: parsed.message })
       return
     }
