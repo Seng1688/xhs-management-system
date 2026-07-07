@@ -1,6 +1,6 @@
 import cors from "cors"
 import { sql } from "drizzle-orm"
-import express, { type Express } from "express"
+import express from "express"
 
 import { db } from "./db/client.js"
 import { aiRouter } from "./modules/ai/ai.routes.js"
@@ -11,7 +11,7 @@ import { joinersRouter } from "./modules/joiners/joiners.routes.js"
 import { meRouter } from "./modules/me/me.routes.js"
 import { shopSearchRouter } from "./modules/shop-search/shop-search.routes.js"
 
-const app: Express = express()
+const app: ReturnType<typeof express> = express()
 
 app.use(
   cors({
