@@ -1,0 +1,1 @@
+ALTER TABLE "joiner" ADD COLUMN "send_email" boolean DEFAULT true NOT NULL;

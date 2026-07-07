@@ -1,0 +1,24 @@
+{
+  "version": 4,
+  "activeEnvironmentId": "local-n8n-2",
+  "environmentTargets": [
+    {
+      "id": "local-n8n",
+      "name": "local-n8n",
+      "kind": "external-instance",
+      "url": "http://localhost:5678"
+    }
+  ],
+  "environments": [
+    {
+      "id": "local-n8n-2",
+      "name": "local-n8n",
+      "syncSlug": "local-n8n",
+      "environmentTargetId": "local-n8n",
+      "projectId": "personal",
+      "projectName": "Personal",
+      "workflowsPath": "workflows/local-n8n",
+      "folderSync": true
+    }
+  ]
+}

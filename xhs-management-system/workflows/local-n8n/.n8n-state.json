@@ -1,0 +1,29 @@
+{
+  "workflows": {
+    "qJI12j8B0V1SqhxZ": {
+      "lastSyncedHash": "79cf5f13db4a038a1b18db227ece51a999b560332975f6853f2903c0d677e9e7",
+      "lastSyncedAt": "2026-07-03T06:35:33.765Z",
+      "filename": "coffee-break-suggestion.workflow.ts"
+    },
+    "CjYqo4RjAtdL6T51": {
+      "lastSyncedHash": "fa4a1df04b272160cbd57281df8728f59adf67926ef207ef4e95cc6b0a4b16a8",
+      "lastSyncedAt": "2026-07-03T08:53:18.591Z",
+      "filename": "ai-visit-prep-briefing.workflow.ts"
+    },
+    "QpBx3l45qldHzhbL": {
+      "lastSyncedHash": "0d0170f27bc6e16266c4b8e35d16fa2c0e719218893294a2f97729dbc16cd659",
+      "lastSyncedAt": "2026-07-06T02:55:59.815Z",
+      "filename": "application-pdf-upload.workflow.ts"
+    },
+    "KnM53LsgcvwylO8b": {
+      "lastSyncedHash": "42ca17b44e57d6da66bfe834b692fcf99aa6b2bcd2b58293a2e631448a254d88",
+      "lastSyncedAt": "2026-07-06T04:22:35.683Z",
+      "filename": "ai-link-reader.workflow.ts"
+    },
+    "R16Oxe2ZEOctmxax": {
+      "lastSyncedHash": "b52e2e90a68bd2d5b120d8adc257e1215f6bcf673078b958112a623d3a55a888",
+      "lastSyncedAt": "2026-07-06T04:49:06.346Z",
+      "filename": "ai-agentic-link-reader.workflow.ts"
+    }
+  }
+}

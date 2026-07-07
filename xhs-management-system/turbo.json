@@ -1,0 +1,57 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "globalEnv": [
+    "AZURE_OPENAI_API_KEY",
+    "AZURE_OPENAI_ENDPOINT",
+    "AZURE_OPENAI_API_VERSION",
+    "AZURE_OPENAI_CHAT_DEPLOYMENT",
+    "AUTH_SESSION_SECRET",
+    "CORS_ORIGIN",
+    "DATABASE_URL",
+    "N8N_SHOP_SEARCH_TOKEN",
+    "N8N_SHOP_SEARCH_TIMEOUT_MS",
+    "N8N_AUTH",
+    "N8N_WEBHOOK_URL",
+    "NODE_ENV",
+    "PORT",
+    "SHOP_SEARCH_ACCEPT_LANGUAGE",
+    "SHOP_SEARCH_COUNTRY_CODES",
+    "SHOP_SEARCH_USER_AGENT"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*"
+      ],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**"
+      ]
+    },
+    "lint": {
+      "dependsOn": [
+        "^lint"
+      ]
+    },
+    "format": {
+      "dependsOn": [
+        "^format"
+      ]
+    },
+    "typecheck": {
+      "dependsOn": [
+        "^typecheck"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

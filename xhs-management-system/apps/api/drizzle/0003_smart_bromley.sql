@@ -1,0 +1,1 @@
+ALTER TYPE "public"."joiner_name" ADD VALUE '爸爸' BEFORE '哥哥';

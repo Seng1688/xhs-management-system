@@ -1,0 +1,69 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1782625046866,
+      "tag": "0000_regular_shaman",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1782626883187,
+      "tag": "0001_lowly_william_stryker",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1782630912289,
+      "tag": "0002_crazy_overlord",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1782707824736,
+      "tag": "0003_smart_bromley",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1782710330252,
+      "tag": "0004_legal_banshee",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1782806581175,
+      "tag": "0005_fearless_hex",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1783013732951,
+      "tag": "0006_curvy_spacker_dave",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1783047723194,
+      "tag": "0007_fuzzy_crusher_hogan",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1783048448012,
+      "tag": "0008_funny_network",
+      "breakpoints": true
+    }
+  ]
+}
