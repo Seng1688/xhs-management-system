@@ -1,4 +1,4 @@
-import { Router, type Router as ExpressRouter } from "express"
+import { Router } from "express"
 
 import {
   loginController,
@@ -6,7 +6,7 @@ import {
   meController,
 } from "./auth.controller.js"
 
-const authRouter: ExpressRouter = Router()
+const authRouter: ReturnType<typeof Router> = Router()
 
 authRouter.post("/login", loginController)
 authRouter.get("/me", meController)

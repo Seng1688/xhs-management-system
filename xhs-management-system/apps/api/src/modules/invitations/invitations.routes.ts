@@ -1,4 +1,4 @@
-import { Router, type Router as ExpressRouter } from "express"
+import { Router } from "express"
 
 import {
   createInvitationController,
@@ -7,7 +7,7 @@ import {
   updateInvitationController,
 } from "./invitations.controller.js"
 
-const invitationsRouter: ExpressRouter = Router()
+const invitationsRouter: ReturnType<typeof Router> = Router()
 
 invitationsRouter.get("/", listInvitationsController)
 invitationsRouter.post("/", createInvitationController)

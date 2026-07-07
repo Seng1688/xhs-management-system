@@ -1,7 +1,7 @@
 import { mkdir } from "node:fs/promises"
 import multer from "multer"
 import { fileURLToPath } from "node:url"
-import { Router, type Router as ExpressRouter } from "express"
+import { Router } from "express"
 
 import {
   getMeProfileController,
@@ -36,7 +36,7 @@ const upload = multer({
   }),
 })
 
-const meRouter: ExpressRouter = Router()
+const meRouter: ReturnType<typeof Router> = Router()
 
 meRouter.get("/profile", getMeProfileController)
 meRouter.post(

@@ -1,4 +1,4 @@
-import { Router, type Router as ExpressRouter } from "express"
+import { Router } from "express"
 
 import {
   createJoinerController,
@@ -7,7 +7,7 @@ import {
   updateJoinerController,
 } from "./joiners.controller.js"
 
-const joinersRouter: ExpressRouter = Router()
+const joinersRouter: ReturnType<typeof Router> = Router()
 
 joinersRouter.get("/", listJoinersController)
 joinersRouter.post("/", createJoinerController)

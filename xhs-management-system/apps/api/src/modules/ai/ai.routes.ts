@@ -1,5 +1,5 @@
 import multer from "multer"
-import { Router, type Router as ExpressRouter } from "express"
+import { Router } from "express"
 
 import {
   analyzeInvitationController,
@@ -8,7 +8,7 @@ import {
   triggerVisitPrepBriefingTestController,
 } from "./ai.controller.js"
 
-const aiRouter: ExpressRouter = Router()
+const aiRouter: ReturnType<typeof Router> = Router()
 const uploadApplicationPdf = multer({
   fileFilter: (_req, file, callback) => {
     if (

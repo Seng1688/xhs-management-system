@@ -1,4 +1,4 @@
-import { Router, type Router as ExpressRouter } from "express"
+import { Router } from "express"
 
 import {
   addAiMessageController,
@@ -13,7 +13,7 @@ import {
   updateContentController,
 } from "./content.controller.js"
 
-const contentRouter: ExpressRouter = Router()
+const contentRouter: ReturnType<typeof Router> = Router()
 
 contentRouter.get("/invitations", listContentInvitationsController)
 contentRouter.get(
