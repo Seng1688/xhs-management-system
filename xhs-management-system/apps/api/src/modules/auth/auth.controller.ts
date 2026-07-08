@@ -31,11 +31,8 @@ const loginController: RequestHandler = async (req, res, next) => {
     }
 
     res.cookie(sessionCookieName, createSessionToken(user), {
-      httpOnly: true,
+      ...getCookieOptions(),
       maxAge: sessionMaxAgeMs,
-      path: "/",
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
     })
     res.json({ user })
   } catch (error) {
@@ -90,11 +87,13 @@ function getCookie(header: string | undefined, name: string) {
 }
 
 function getCookieOptions() {
+  const isProduction = process.env.NODE_ENV === "production"
+
   return {
     httpOnly: true,
     path: "/",
-    sameSite: "lax" as const,
-    secure: process.env.NODE_ENV === "production",
+    sameSite: isProduction ? ("none" as const) : ("lax" as const),
+    secure: isProduction,
   }
 }
 
