@@ -190,7 +190,7 @@ function DashboardPage() {
   }
 
   return (
-    <main className="flex flex-col gap-6">
+    <main className="flex min-w-0 flex-col gap-6 overflow-x-hidden">
       <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div className="space-y-2">
           <p className="text-sm font-medium text-primary">Creator CRM</p>
@@ -366,7 +366,7 @@ function AnalyticsSection({
   range: AnalyticsRange
 }) {
   return (
-    <section className="space-y-4 rounded-lg border border-border bg-background p-4 shadow-sm">
+    <section className="min-w-0 space-y-4 overflow-hidden rounded-lg border border-border bg-background p-4 shadow-sm">
       <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
         <div className="flex min-w-0 items-start gap-3">
           <span
@@ -421,7 +421,7 @@ function AnalyticsSection({
         />
       </div>
 
-      <div className="grid gap-4 xl:grid-cols-2">
+      <div className="grid min-w-0 gap-4 xl:grid-cols-2">
         <ChartCard
           description="Current status mix for invitations with visits in range."
           emoji="🥧"
@@ -429,29 +429,31 @@ function AnalyticsSection({
           title="Status breakdown"
         >
           {analytics.statusData.length > 0 ? (
-            <ChartContainer
-              className="mx-auto aspect-square max-h-72"
-              config={statusChartConfig}
-            >
-              <PieChart>
-                <ChartTooltip
-                  content={<ChartTooltipContent hideLabel />}
-                  cursor={false}
-                />
-                <Pie
-                  data={analytics.statusData}
-                  dataKey="value"
-                  innerRadius={48}
-                  nameKey="status"
-                  outerRadius={86}
-                  paddingAngle={3}
-                >
-                  {analytics.statusData.map((item) => (
-                    <Cell key={item.status} fill={item.fill} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ChartContainer>
+            <ChartScroller>
+              <ChartContainer
+                className="mx-auto aspect-square h-72 min-w-72"
+                config={statusChartConfig}
+              >
+                <PieChart>
+                  <ChartTooltip
+                    content={<ChartTooltipContent hideLabel />}
+                    cursor={false}
+                  />
+                  <Pie
+                    data={analytics.statusData}
+                    dataKey="value"
+                    innerRadius={48}
+                    nameKey="status"
+                    outerRadius={86}
+                    paddingAngle={3}
+                  >
+                    {analytics.statusData.map((item) => (
+                      <Cell key={item.status} fill={item.fill} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ChartContainer>
+            </ChartScroller>
           ) : (
             <EmptyChartMessage message="No invitation data in this period." />
           )}
@@ -464,29 +466,31 @@ function AnalyticsSection({
           title="Visit type breakdown"
         >
           {analytics.visitTypeData.length > 0 ? (
-            <ChartContainer
-              className="mx-auto aspect-square max-h-72"
-              config={visitTypeChartConfig}
-            >
-              <PieChart>
-                <ChartTooltip
-                  content={<ChartTooltipContent hideLabel />}
-                  cursor={false}
-                />
-                <Pie
-                  data={analytics.visitTypeData}
-                  dataKey="value"
-                  innerRadius={48}
-                  nameKey="visitType"
-                  outerRadius={86}
-                  paddingAngle={3}
-                >
-                  {analytics.visitTypeData.map((item) => (
-                    <Cell key={item.visitType} fill={item.fill} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ChartContainer>
+            <ChartScroller>
+              <ChartContainer
+                className="mx-auto aspect-square h-72 min-w-72"
+                config={visitTypeChartConfig}
+              >
+                <PieChart>
+                  <ChartTooltip
+                    content={<ChartTooltipContent hideLabel />}
+                    cursor={false}
+                  />
+                  <Pie
+                    data={analytics.visitTypeData}
+                    dataKey="value"
+                    innerRadius={48}
+                    nameKey="visitType"
+                    outerRadius={86}
+                    paddingAngle={3}
+                  >
+                    {analytics.visitTypeData.map((item) => (
+                      <Cell key={item.visitType} fill={item.fill} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ChartContainer>
+            </ChartScroller>
           ) : (
             <EmptyChartMessage message="No visit type data in this period." />
           )}
@@ -500,36 +504,38 @@ function AnalyticsSection({
           title="Visits over time"
         >
           {analytics.visitSeries.length > 0 ? (
-            <ChartContainer className="h-72" config={createdChartConfig}>
-              <BarChart
-                accessibilityLayer
-                data={analytics.visitSeries}
-                margin={{ left: -20, right: 12, top: 12 }}
-              >
-                <CartesianGrid vertical={false} />
-                <XAxis
-                  axisLine={false}
-                  dataKey="label"
-                  tickLine={false}
-                  tickMargin={8}
-                />
-                <YAxis
-                  allowDecimals={false}
-                  axisLine={false}
-                  tickLine={false}
-                  width={36}
-                />
-                <ChartTooltip
-                  content={<ChartTooltipContent />}
-                  cursor={false}
-                />
-                <Bar
-                  dataKey="count"
-                  fill="var(--color-count)"
-                  radius={[4, 4, 0, 0]}
-                />
-              </BarChart>
-            </ChartContainer>
+            <ChartScroller>
+              <ChartContainer className="h-72 min-w-[520px]" config={createdChartConfig}>
+                <BarChart
+                  accessibilityLayer
+                  data={analytics.visitSeries}
+                  margin={{ left: -20, right: 12, top: 12 }}
+                >
+                  <CartesianGrid vertical={false} />
+                  <XAxis
+                    axisLine={false}
+                    dataKey="label"
+                    tickLine={false}
+                    tickMargin={8}
+                  />
+                  <YAxis
+                    allowDecimals={false}
+                    axisLine={false}
+                    tickLine={false}
+                    width={36}
+                  />
+                  <ChartTooltip
+                    content={<ChartTooltipContent />}
+                    cursor={false}
+                  />
+                  <Bar
+                    dataKey="count"
+                    fill="var(--color-count)"
+                    radius={[4, 4, 0, 0]}
+                  />
+                </BarChart>
+              </ChartContainer>
+            </ChartScroller>
           ) : (
             <EmptyChartMessage message="No visits in this period." />
           )}
@@ -543,53 +549,55 @@ function AnalyticsSection({
           title="Joiner involvement"
         >
           {analytics.joinerData.length > 0 ? (
-            <ChartContainer
-              className="h-80 min-w-0 overflow-hidden"
-              config={joinerChartConfig}
-            >
-              <BarChart
-                accessibilityLayer
-                data={analytics.joinerData}
-                layout="vertical"
-                margin={{ bottom: 16, left: 0, right: 35, top: 8 }}
+            <ChartScroller>
+              <ChartContainer
+                className="h-80 min-w-[560px]"
+                config={joinerChartConfig}
               >
-                <CartesianGrid horizontal={false} />
-                <XAxis
-                  allowDecimals={false}
-                  axisLine={true}
-                  dataKey="count"
-                  domain={[0, getJoinerXAxisDomainMax(analytics.joinerData)]}
-                  tickLine={true}
-                  tickMargin={8}
-                  ticks={getJoinerXAxisTicks(analytics.joinerData)}
-                  type="number"
-                />
-                <YAxis
-                  axisLine={true}
-                  dataKey="name"
-                  tickFormatter={formatJoinerAxisLabel}
-                  tickLine={true}
-                  tickMargin={8}
-                  type="category"
-                  width={72}
-                />
-                <ChartTooltip
-                  content={<ChartTooltipContent />}
-                  cursor={true}
-                />
-                <Bar
-                  dataKey="count"
-                  fill="var(--color-count)"
-                  radius={[0, 4, 4, 0]}
+                <BarChart
+                  accessibilityLayer
+                  data={analytics.joinerData}
+                  layout="vertical"
+                  margin={{ bottom: 16, left: 0, right: 35, top: 8 }}
                 >
-                  <LabelList
-                    className="fill-primary-foreground text-xs"
+                  <CartesianGrid horizontal={false} />
+                  <XAxis
+                    allowDecimals={false}
+                    axisLine={true}
                     dataKey="count"
-                    position="insideRight"
+                    domain={[0, getJoinerXAxisDomainMax(analytics.joinerData)]}
+                    tickLine={true}
+                    tickMargin={8}
+                    ticks={getJoinerXAxisTicks(analytics.joinerData)}
+                    type="number"
                   />
-                </Bar>
-              </BarChart>
-            </ChartContainer>
+                  <YAxis
+                    axisLine={true}
+                    dataKey="name"
+                    tickFormatter={formatJoinerAxisLabel}
+                    tickLine={true}
+                    tickMargin={8}
+                    type="category"
+                    width={72}
+                  />
+                  <ChartTooltip
+                    content={<ChartTooltipContent />}
+                    cursor={true}
+                  />
+                  <Bar
+                    dataKey="count"
+                    fill="var(--color-count)"
+                    radius={[0, 4, 4, 0]}
+                  >
+                    <LabelList
+                      className="fill-primary-foreground text-xs"
+                      dataKey="count"
+                      position="insideRight"
+                    />
+                  </Bar>
+                </BarChart>
+              </ChartContainer>
+            </ChartScroller>
           ) : (
             <EmptyChartMessage message="No joiner involvement in this period." />
           )}
@@ -644,7 +652,7 @@ function ChartCard({
   return (
     <div
       className={cn(
-        "rounded-lg border border-border bg-background p-4",
+        "min-w-0 rounded-lg border border-border bg-background p-4",
         className
       )}
     >
@@ -660,13 +668,21 @@ function ChartCard({
           <p className="text-sm text-muted-foreground">{description}</p>
         </div>
       </div>
-      <div className="mt-4">
+      <div className="mt-4 min-w-0">
         {isLoading ? (
           <EmptyChartMessage message="Loading chart data..." />
         ) : (
           children
         )}
       </div>
+    </div>
+  )
+}
+
+function ChartScroller({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="max-w-full overflow-x-auto pb-2">
+      <div className="min-w-max">{children}</div>
     </div>
   )
 }

@@ -22,11 +22,11 @@ function ContentInvitationCard({
   )
 
   return (
-    <div className="rounded-lg border border-border bg-background p-4 shadow-sm">
+    <div className="min-w-0 rounded-lg border border-border bg-background p-4 shadow-sm">
       <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
         <div className="min-w-0 space-y-2">
           <div className="flex flex-wrap items-center gap-2">
-            <h2 className="truncate font-heading text-lg font-semibold">
+            <h2 className="min-w-0 max-w-full truncate font-heading text-lg font-semibold">
               {item.invitation.shopName}
             </h2>
             <span
@@ -57,12 +57,21 @@ function ContentInvitationCard({
           ) : null}
         </div>
 
-        <div className="flex shrink-0 gap-2">
-          <Button type="button" variant="outline" onClick={() => onEdit(item)}>
+        <div className="grid w-full min-w-0 grid-cols-1 gap-2 sm:grid-cols-2 md:flex md:w-auto md:shrink-0">
+          <Button
+            className="w-full md:w-auto"
+            type="button"
+            variant="outline"
+            onClick={() => onEdit(item)}
+          >
             <Edit3 aria-hidden="true" />
             Edit
           </Button>
-          <Button type="button" onClick={() => onAiGenerate(item)}>
+          <Button
+            className="w-full md:w-auto"
+            type="button"
+            onClick={() => onAiGenerate(item)}
+          >
             <Bot aria-hidden="true" />
             AI Generate
           </Button>

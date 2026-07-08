@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import {
   CalendarDays,
   ChevronsLeft,
@@ -7,12 +8,17 @@ import {
   FileText,
   LayoutDashboard,
   LogOut,
+  Menu,
+  Moon,
   Store,
+  Sun,
   UserRound,
   UsersRound,
+  X,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
+import { useTheme } from "next-themes"
 import { useQueryClient } from "@tanstack/react-query"
 
 import { authSessionQueryKey } from "@/hooks/use-auth-session"
@@ -58,6 +64,11 @@ function SidebarNav({ isCollapsed, onCollapsedChange }: SidebarNavProps) {
   const pathname = usePathname()
   const queryClient = useQueryClient()
   const router = useRouter()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
+
+  React.useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [pathname])
 
   async function logout() {
     try {
@@ -81,32 +92,7 @@ function SidebarNav({ isCollapsed, onCollapsedChange }: SidebarNavProps) {
           onToggle={() => onCollapsedChange(!isCollapsed)}
         />
 
-        <nav className="min-h-0 flex-1 overflow-y-auto px-3 py-4">
-          <div className="flex flex-col gap-1">
-          {navItems.map((item) => {
-            const Icon = item.icon
-            const isActive = pathname === item.href
-
-            return (
-              <Link
-                key={item.href}
-                title={isCollapsed ? item.label : undefined}
-                className={cn(
-                  "inline-flex h-10 items-center gap-3 rounded-md px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
-                  isCollapsed && "justify-center px-0",
-                  isActive && "bg-muted text-foreground"
-                )}
-                href={item.href}
-              >
-                <Icon className="size-4" aria-hidden="true" />
-                <span className={cn(isCollapsed && "sr-only")}>
-                  {item.label}
-                </span>
-              </Link>
-            )
-          })}
-          </div>
-        </nav>
+        <SidebarLinks isCollapsed={isCollapsed} pathname={pathname} />
 
         <SidebarAccount
           isActive={pathname === "/me"}
@@ -121,12 +107,98 @@ function SidebarNav({ isCollapsed, onCollapsedChange }: SidebarNavProps) {
             <LayoutDashboard className="size-4" aria-hidden="true" />
           </span>
           <span className="font-heading text-sm font-semibold">XHS CRM</span>
+          <ThemeToggleButton />
         </div>
-        <Button aria-label="Logout" size="icon-sm" variant="outline" onClick={logout}>
-          <LogOut aria-hidden="true" />
+        <Button
+          aria-expanded={isMobileMenuOpen}
+          aria-label={isMobileMenuOpen ? "Close navigation" : "Open navigation"}
+          size="icon-sm"
+          variant="outline"
+          onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
+        >
+          {isMobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
         </Button>
       </header>
+
+      {isMobileMenuOpen ? (
+        <div className="fixed inset-0 z-40 lg:hidden">
+          <button
+            aria-label="Close navigation"
+            className="absolute inset-0 bg-background/70 backdrop-blur-sm"
+            type="button"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          <aside className="relative flex h-full w-[min(320px,calc(100vw-48px))] flex-col border-r border-border bg-background shadow-xl">
+            <div className="flex h-14 items-center justify-between border-b border-border px-4">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
+                  <LayoutDashboard className="size-4" aria-hidden="true" />
+                </span>
+                <span className="font-heading text-sm font-semibold">XHS CRM</span>
+                <ThemeToggleButton />
+              </div>
+              <Button
+                aria-label="Close navigation"
+                size="icon-sm"
+                type="button"
+                variant="ghost"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <X aria-hidden="true" />
+              </Button>
+            </div>
+            <SidebarLinks
+              isCollapsed={false}
+              pathname={pathname}
+              onNavigate={() => setIsMobileMenuOpen(false)}
+            />
+            <SidebarAccount
+              isActive={pathname === "/me"}
+              isCollapsed={false}
+              onLogout={logout}
+            />
+          </aside>
+        </div>
+      ) : null}
     </>
+  )
+}
+
+function SidebarLinks({
+  isCollapsed,
+  onNavigate,
+  pathname,
+}: {
+  isCollapsed: boolean
+  onNavigate?: () => void
+  pathname: string
+}) {
+  return (
+    <nav className="min-h-0 flex-1 overflow-y-auto px-3 py-4">
+      <div className="flex flex-col gap-1">
+        {navItems.map((item) => {
+          const Icon = item.icon
+          const isActive = pathname === item.href
+
+          return (
+            <Link
+              key={item.href}
+              title={isCollapsed ? item.label : undefined}
+              className={cn(
+                "inline-flex h-10 items-center gap-3 rounded-md px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+                isCollapsed && "justify-center px-0",
+                isActive && "bg-muted text-foreground"
+              )}
+              href={item.href}
+              onClick={onNavigate}
+            >
+              <Icon className="size-4" aria-hidden="true" />
+              <span className={cn(isCollapsed && "sr-only")}>{item.label}</span>
+            </Link>
+          )
+        })}
+      </div>
+    </nav>
   )
 }
 
@@ -145,7 +217,10 @@ function SidebarBrand({
         </span>
         {!isCollapsed ? (
           <div className="min-w-0 flex-1">
-            <p className="truncate font-heading text-base font-semibold">XHS CRM</p>
+            <div className="flex items-center gap-1">
+              <p className="truncate font-heading text-base font-semibold">XHS CRM</p>
+              <ThemeToggleButton />
+            </div>
             <p className="truncate text-xs text-muted-foreground">
               Creator workspace
             </p>
@@ -222,6 +297,32 @@ function SidebarAccount({
         {!isCollapsed ? "Logout" : null}
       </Button>
     </div>
+  )
+}
+
+function ThemeToggleButton() {
+  const { resolvedTheme, setTheme } = useTheme()
+  const [isMounted, setIsMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  const isDark = isMounted && resolvedTheme === "dark"
+  const label = isDark ? "Light mode" : "Dark mode"
+
+  return (
+    <Button
+      aria-label={label}
+      className="size-8"
+      size="icon-sm"
+      title={label}
+      type="button"
+      variant="ghost"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+    >
+      {isDark ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
+    </Button>
   )
 }
 
