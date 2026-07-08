@@ -12,11 +12,15 @@ import { meRouter } from "./modules/me/me.routes.js"
 import { shopSearchRouter } from "./modules/shop-search/shop-search.routes.js"
 
 const app: ReturnType<typeof express> = express()
+const corsOrigins = (process.env.CORS_ORIGIN ?? "http://localhost:3000")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean)
 
 app.use(
   cors({
     credentials: true,
-    origin: process.env.CORS_ORIGIN ?? "http://localhost:3000",
+    origin: corsOrigins,
   }),
 )
 app.use(express.json())
