@@ -9,10 +9,10 @@ import {
   type Invitation,
 } from "../../db/schema/index.js"
 
-const DAY_BEFORE_VISIT_REMINDER = "day_before_visit"
+const TWO_DAYS_BEFORE_VISIT_REMINDER = "two_days_before_visit"
 const TIME_ZONE = "Asia/Kuala_Lumpur"
 const N8N_VISIT_REMINDER_PATH = "visit-reminder"
-const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000
+const TWO_DAYS_IN_MS = 2 * 24 * 60 * 60 * 1000
 
 type ReminderJoiner = {
   email: string
@@ -31,10 +31,10 @@ type VisitReminderResult = {
   skipped: number
 }
 
-async function sendDayBeforeVisitReminders(
+async function sendTwoDaysBeforeVisitReminders(
   now = new Date()
 ): Promise<VisitReminderResult> {
-  const visitDate = toDateKey(new Date(now.getTime() + ONE_DAY_IN_MS))
+  const visitDate = toDateKey(new Date(now.getTime() + TWO_DAYS_IN_MS))
   const invitations = await listScheduledInvitationsByVisitDate(visitDate)
   const result: VisitReminderResult = {
     failed: 0,
@@ -68,7 +68,7 @@ async function sendDayBeforeVisitReminders(
       console.warn(
         error instanceof Error
           ? error.message
-          : "Day-before visit reminder failed with an unknown error"
+          : "Two-days-before visit reminder failed with an unknown error"
       )
     }
   }
@@ -133,7 +133,10 @@ async function hasReminderLog(invitationId: string, visitDate: string) {
     .where(
       and(
         eq(invitationReminderLogs.invitationId, invitationId),
-        eq(invitationReminderLogs.reminderType, DAY_BEFORE_VISIT_REMINDER),
+        eq(
+          invitationReminderLogs.reminderType,
+          TWO_DAYS_BEFORE_VISIT_REMINDER
+        ),
         eq(invitationReminderLogs.visitDate, visitDate)
       )
     )
@@ -147,7 +150,7 @@ async function createReminderLog(invitationId: string, visitDate: string) {
     .insert(invitationReminderLogs)
     .values({
       invitationId,
-      reminderType: DAY_BEFORE_VISIT_REMINDER,
+      reminderType: TWO_DAYS_BEFORE_VISIT_REMINDER,
       visitDate,
     })
     .onConflictDoNothing()
@@ -165,7 +168,7 @@ async function triggerVisitReminderWebhook(
 
   const response = await fetch(webhookUrl, {
     body: JSON.stringify({
-      event: "visit.reminder.day_before",
+      event: "visit.reminder.two_days_before",
       invitation: {
         address: invitation.address,
         compensation: invitation.compensation,
@@ -284,4 +287,4 @@ function toDateKey(date: Date) {
   return `${year}-${month}-${day}`
 }
 
-export { sendDayBeforeVisitReminders }
+export { sendTwoDaysBeforeVisitReminders }
