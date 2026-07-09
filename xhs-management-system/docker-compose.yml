@@ -24,18 +24,23 @@ services:
     ports:
       - "5678:5678"
     environment:
-      - DB_TYPE=postgresdb
-      - DB_POSTGRESDB_HOST=postgres # Matches the service name above
-      - DB_POSTGRESDB_PORT=5432
-      - DB_POSTGRESDB_DATABASE=n8n # Separate database for n8n
-      - DB_POSTGRESDB_USER=postgres # Your existing user
-      - DB_POSTGRESDB_PASSWORD=minichoper # Your existing password
+      - DB_TYPE=${N8N_LOCAL_DB_TYPE}
+      - DB_POSTGRESDB_HOST=${N8N_LOCAL_DB_POSTGRESDB_HOST}
+      - DB_POSTGRESDB_PORT=${N8N_LOCAL_DB_POSTGRESDB_PORT}
+      - DB_POSTGRESDB_DATABASE=${N8N_LOCAL_DB_POSTGRESDB_DATABASE}
+      - DB_POSTGRESDB_USER=${N8N_LOCAL_DB_POSTGRESDB_USER}
+      - DB_POSTGRESDB_PASSWORD=${N8N_LOCAL_DB_POSTGRESDB_PASSWORD}
+
+      # neondb
+      # - DB_POSTGRESDB_HOST=${N8N_NEON_DB_POSTGRESDB_HOST}
+      # - DB_POSTGRESDB_PORT=${N8N_NEON_DB_POSTGRESDB_PORT:-5432}
+      # - DB_POSTGRESDB_DATABASE=${N8N_NEON_DB_POSTGRESDB_DATABASE}
+      # - DB_POSTGRESDB_USER=${N8N_NEON_DB_POSTGRESDB_USER}
+      # - DB_POSTGRESDB_PASSWORD=${N8N_NEON_DB_POSTGRESDB_PASSWORD}
+      # - DB_POSTGRESDB_SSL_ENABLED=${N8N_NEON_DB_POSTGRESDB_SSL_ENABLED:-true}
     volumes:
       # Remember, n8n still needs local storage for encryption keys!
       - n8n_storage:/home/node/.n8n
-    depends_on:
-      postgres:
-        condition: service_healthy # Waits for your healthcheck to pass first
 
 volumes:
   postgres_data:
